@@ -1,0 +1,5 @@
+node_modules/
+dist/
+dist-zipped/
+/share/*.zip
+.DS_Store

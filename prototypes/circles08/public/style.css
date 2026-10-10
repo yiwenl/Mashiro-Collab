@@ -1,0 +1,18 @@
+* { box-sizing: border-box; }
+html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #fff; }
+canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+.dg { z-index: 10 !important; }
+#fps-meter { position: absolute; top: 12px; left: 18px; z-index: 2; pointer-events: none;
+  min-width: 76px; padding: 6px 10px; border-radius: 3px; background: #20201de6;
+  color: #fff; font: 12px/1.5 ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+#hand-preview { position: absolute; bottom: 12px; left: 18px; z-index: 1;
+  max-width: calc(100% - 36px); pointer-events: none; }
+#camera-feed { width: min(240px, 40vw); margin-bottom: 6px; overflow: hidden;
+  border: 2px solid #fff; border-radius: 5px; background: #171715; box-shadow: 0 1px 8px #0003; }
+#camera-feed video { display: block; width: 100%; height: auto; }
+#camera-feed.mirrored video { transform: scaleX(-1); }
+#hand-status { width: fit-content; max-width: 100%; padding: 6px 10px;
+  border-radius: 3px; background: #ffffffe6;
+  color: #35352f; font: 12px/1.5 system-ui, sans-serif; }
+#status { position: absolute; z-index: 2; bottom: 24px; left: 24px; right: 24px; padding: 14px 18px;
+  background: #fff3ef; color: #822c18; font: 14px/1.5 system-ui, sans-serif; }
