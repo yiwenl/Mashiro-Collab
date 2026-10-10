@@ -2,24 +2,30 @@
 
 ## 目的
 
-各テストセッションの開始前に GitHub の最新 `main` を取得し、終了時には保持する変更を `main` に merge して GitHub に push します。ローカルでの保存だけでは共有完了ではありません。
+各テストセッションの開始前に GitHub の最新 `main` を取得し、終了時には保持する変更を `main` に merge して GitHub に push します。ローカルでの保存だけでは共有完了ではありません。起動だけで変更がなければ、取得・更新までを行い、書き込みの準備や commit / push は不要です。
 
 Git の対象は **Mashiro-Collab 全体** です。以下の操作はリポジトリのルートで行います。コマンドは状態を確認しながら一つずつ実行し、失敗したら後続を続けないでください。
 
-## 初回: 取得・認証・作者情報
+## 初回: ソースを取得する
 
 1. [環境ガイド](SETUP-AND-RUN.md) に従って Git を確認します。
 2. 既存の checkout がある場合は `git rev-parse --show-toplevel` と `git remote -v` で場所と接続先を確認します。重ねて clone しません。
-3. 初めて取得する場合、保存先の親フォルダーで次を実行します。
+3. 初めて取得する場合、書き込める保存先の親フォルダーで次を実行します。同名の別フォルダーを上書きしません。非公開リポジトリなど読み取り認証が必要な場合だけ、本人の GitHub アカウントで認証します。
 
 ```sh
 git clone https://github.com/yiwenl/Mashiro-Collab.git
 cd Mashiro-Collab
 ```
 
-4. 所有者から共同編集の招待を受け、友人本人の GitHub アカウントで承認してもらいます。公開リポジトリを読めても書き込み権限があるとは限りません。
-5. 既存の認証方法を優先します。必要なら GitHub CLI の `gh auth login` → `gh auth setup-git`、または Git Credential Manager / SSH を案内します。ブラウザーでのログインは本人に依頼し、パスワードや token をチャットやファイルに貼らせません。
-6. `git config user.name` と `git config user.email` を確認します。未設定なら本人の希望する名前・メール（GitHub の noreply も可）を確認し、`git config --local` で設定します。作者の情報をコピーせず、他のプロジェクトの global 設定を変更しません。
+認証が必要な場合は既存の方法を優先します。必要なら GitHub CLI の `gh auth login` → `gh auth setup-git`、または Git Credential Manager / SSH を使います。ログインは本人に依頼し、パスワードや token をチャットやファイルに貼らせません。clone できたら、下の「開始前」へ進みます。作者情報や書き込み権限が未設定でも起動できます。
+
+## 変更を共有する時: 書き込み権限と作者情報
+
+初めて調整・保存を依頼された時に準備します。初回の画面を開くための前提にはしません。
+
+1. 所有者から共同編集の招待を受け、友人本人の GitHub アカウントで承認してもらいます。公開リポジトリを読めても書き込み権限があるとは限りません。
+2. 本人の認証が必要なら、上記の認証方法を使います。
+3. `git config user.name` と `git config user.email` を確認します。未設定なら本人の希望する名前・メール（GitHub の noreply も可）を確認し、`git config --local` で設定します。作者の情報をコピーせず、他のプロジェクトの global 設定を変更しません。
 
 CLI が利用できる場合は `gh repo view yiwenl/Mashiro-Collab --json viewerPermission` で権限を確認できます。ブランチ保護は別条件なので、書き込み権限があっても `main` への直接 push が可能とは限りません。
 
@@ -47,7 +53,7 @@ git merge --ff-only origin/main
 
 `main` に共有されていない commit がないかも `git log --oneline origin/main..main` で確認します。他の作業の commit があれば、今回まとめて push しないよう内容を確認・分離します。
 
-最新の `main` から今回のブランチを作ります。次は circles08 の手の調整の例です。対象と目的に合わせ、一意な名前を選んでください。
+起動だけなら、更新した `main` のまま環境準備へ進めます。ファイルを変更する場合は最新の `main` から今回のブランチを作ります。次は circles08 の手の調整の例です。対象と目的に合わせ、一意な名前を選んでください。
 
 ```sh
 git switch -c codex/circles08-hand-scale
@@ -64,6 +70,8 @@ git switch -c codex/circles08-hand-scale
 - すでに merge / rebase 中ならまずその状態を把握し、無関係な操作を重ねません。
 
 ## 終了時
+
+以下は保持するファイルの変更がある場合の手順です。変更なしの起動引き渡しでは実行せず、サーバーを動かしたまま画面または URL を渡します。
 
 ### 1. 保持する内容を検証・保存
 

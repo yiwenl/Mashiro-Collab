@@ -2,13 +2,13 @@
 
 Mashiro Collab の候補の一つです。手や身体の動きと図形の交差を試すためのプロトタイプで、最終的な作品の方向は未決定です。[候補の一覧](../../README.md)に戻れます。
 
-AI agent は先に [共通の開始ガイド](../../AGENTS.md) を読み、テストセッション前の Git 更新を済ませてください。この README は circles08 の操作説明です。
+初めて利用する人は [ルート README](https://github.com/yiwenl/Mashiro-Collab/blob/main/README.md) を agent に渡してください。agent が取得・準備・起動まで進めます。この README は circles08 の操作説明です。AI agent は [共通ルール](../../AGENTS.md) を読み、テストセッション前の Git 更新を済ませてください。
 
 球・直方体・細長い棒が中心に集まり、重なりによって色とパターンが変化するインタラクティブな 3D 実験です。Digit による手の検出、Kinetic による全身骨格からの両手の検出に対応しています。
 
 ## 起動
 
-Node.js 22 と npm を使用します。ライブラリは同梱されているため、他のリポジトリの取得や npm ログインは不要です。共同編集の clone / push には共有リポジトリへの適切なアクセス権が必要です。
+Node.js 22 と npm を使用します。不足している場合は agent が [環境ガイド](../../docs/agent/SETUP-AND-RUN.md)に従って導入します。追跡ライブラリのソースは同梱されており、他のリポジトリの取得や npm ログインは不要です。npm の依存関係は下記でインストールします。GitHub の取得認証は必要な場合だけ行い、作者情報や push 権限の準備は変更を共有する時に行います。
 
 以下は Mashiro-Collab のルートから実行します。すでに `prototypes/circles08/` にいる場合は最初の `cd` を省きます。
 
@@ -18,7 +18,9 @@ npm ci
 npm start
 ```
 
-[http://127.0.0.1:8083/](http://127.0.0.1:8083/) を WebGL 2 対応ブラウザーで開いてください。ポートが使用中の場合は `npm start -- --port 8084` を使います。
+agent はコンパイルと HTTP 応答を確認し、[http://127.0.0.1:8083/](http://127.0.0.1:8083/) を利用者に見える WebGL 2 対応ブラウザーで開くか、クリックできる URL を渡します。ポートが使用中の場合は空きを確認して `npm start -- --port 8084` のように起動し、リンクも実際のポートに合わせます。**返信後もサーバーを動かしたままにします。** ブラウザー操作ができなければ、画面未確認と添えて URL を渡してください。
+
+カメラは画面を開いた後で試せます。初回起動だけであれば、カメラの許可や全テスト・ビルドの完了を待つ必要はありません。
 
 ## カメラとインタラクション
 
@@ -82,8 +84,8 @@ npm run build
 - 元の実験記録は [docs/history/EXPERIMENT.zh-TW.md](docs/history/EXPERIMENT.zh-TW.md) にあります。履歴内の古いパスや作業方針は現行の指示ではありません。
 - 実際のカメラによる認識精度と投影時の操作感は現場での確認が必要です。
 
-停止する時は **Stop camera** を押し、開発サーバーを起動した terminal で Ctrl+C を押します。
+試し終えて停止する時は、agent に停止を依頼できます。自分で停止する場合は、カメラ使用中なら **Stop camera** を押し、開発サーバーを起動した terminal で Ctrl+C を押します。
 
 ## Quick start (English)
 
-Read the root [AGENTS.md](../../AGENTS.md) first. From the repository root, enter `prototypes/circles08/`. Use Node.js 22, run `npm ci` and `npm start`, then open `http://127.0.0.1:8083/`. Choose Digit or Kinetic under Tracking and click Start tracking. Tracking libraries are included in `vendor/`; no sibling checkout is needed. GitHub access for collaboration is separate. Camera access requires localhost or HTTPS and downloads WASM/model assets from external CDNs. GUI settings reset on reload; save chosen defaults in source. Run `npm test` and `npm run build` from this prototype directory. This is one experimental direction, not a selected final design.
+Give the root [README](https://github.com/yiwenl/Mashiro-Collab/blob/main/README.md) to an agent that can operate your PC. The agent reads [AGENTS.md](../../AGENTS.md), obtains the latest shared main, installs Node.js 22 with npm if needed, enters `prototypes/circles08/`, runs `npm ci`, and starts `npm start`. It verifies the actual URL, opens a visible browser or provides a clickable link, and keeps the server running after replying. The default URL is `http://127.0.0.1:8083/`; use the actual port if it changes. Camera tracking is optional after launch: choose Digit or Kinetic under Tracking and click Start tracking. Tracking sources are included in `vendor/`; no sibling checkout is needed. Camera access requires localhost or HTTPS and downloads WASM/model assets from external CDNs. GUI settings reset on reload; save chosen defaults in source. Before sharing code changes, run `npm test` and `npm run build`, then follow the shared Git workflow. This is one experimental direction, not a selected final design.

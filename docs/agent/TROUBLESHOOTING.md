@@ -6,13 +6,18 @@
 
 | 症状 | agent が確認すること | 対応 |
 | --- | --- | --- |
+| README 本文だけを受け取り、他のファイルがない | 本文にある共有リポジトリ URL と取得状況 | [共有リポジトリ](https://github.com/yiwenl/Mashiro-Collab)から agent が取得して読む。利用者に文書を一つずつ貼り直させない |
+| agent の localhost が利用者の PC で開かない | 実行先がクラウドや別 PC ではないか | 本人の PC の terminal / ファイル操作に接続して起動する。実行手段がなければ必要な環境を具体的に伝える |
 | `package.json` がない / ENOENT | リポジトリのルートで npm を実行していないか | 対象の `prototypes/<id>/` に移動する。新しい package.json をその場で作らない |
 | `git` / `node` / `npm` が見つからない | インストール状況、PATH、terminal の再起動 | [環境ガイド](SETUP-AND-RUN.md) を使う |
+| `node` は動くが `npm` がない | 選択中の Node.js と PATH | npm を含む指定バージョンの Node.js の導入を修復し、両方のバージョンを再確認する |
 | PowerShell が `npm.ps1` を拒否 | 同じ Node.js の `npm.cmd` が使えるか | `npm.cmd ci` / `npm.cmd start` を使う |
 | `npm ci` が lockfile 不一致で止まる | 対象フォルダー、manifest / lockfile の差分、未解決の競合 | 正しい組み合わせを復元する。lockfile を消して回避しない |
 | 依存ダウンロード失敗 | 接続、proxy、DNS、最初の npm エラー | 通信原因を解消して再実行する。SSL 検証を無効化しない |
 | 権限エラー | 保存先の所有者と npm cache の状態 | 原因に合わせて直す。無条件に `sudo npm` を使わない |
 | ポート使用中 | 既存サーバーのプロジェクトとポート | 自分の既存サーバーを再利用するか別ポートへ。無関係なプロセスを止めない |
+| 起動直後は開けたが、agent の返信後に開けない | 起動セッションの終了・時間制限・停止処理 | 返信後も残る terminal / 継続実行セッションで再起動し、HTTP 接続を確認して実際の URL を渡す |
+| agent にブラウザー操作機能がない | サーバーが対象の HTML を返すか | HTTP 接続を確認したリンクを渡し、画面未確認と添える。本人の画面確認待ちで URL の引き渡しを止めない |
 | Git の更新・push 失敗 | 接続先、ログイン、権限、競合、ブランチ保護 | [Git ガイド](GIT-WORKFLOW.md) の対応へ。force push を使わない |
 | 調整が消えた | GUI だけで変更していないか | [調整ガイド](ADJUSTMENT-GUIDE.md) に従い保持したい値をソースへ保存する |
 
